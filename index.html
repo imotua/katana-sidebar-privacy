@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Katana MRP Sidebar</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* Top bar */
+    .topbar {
+      background: #161b22;
+      border-bottom: 1px solid #21262d;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-icon {
+      width: 32px;
+      height: 32px;
+      background: #f97316;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .topbar-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f0f6fc;
+    }
+
+    .topbar-sub {
+      font-size: 12px;
+      color: #6e7681;
+      margin-top: 1px;
+    }
+
+    /* Main layout */
+    .container {
+      max-width: 760px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 8px;
+    }
+
+    .hero .updated {
+      font-size: 13px;
+      color: #6e7681;
+    }
+
+    .hero .updated span {
+      color: #f97316;
+    }
+
+    /* Summary badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 40px;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #8b949e;
+    }
+
+    .badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge.green .dot { background: #3fb950; }
+    .badge.green { border-color: #1f4a2a; }
+
+    .badge.blue .dot { background: #388bfd; }
+    .badge.blue { border-color: #1a3358; }
+
+    .badge.orange .dot { background: #f97316; }
+    .badge.orange { border-color: #4a2510; }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-icon {
+      font-size: 16px;
+      width: 28px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f0f6fc;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .section-body {
+      padding: 20px;
+    }
+
+    .section-body p {
+      font-size: 14px;
+      color: #8b949e;
+      margin-bottom: 14px;
+    }
+
+    .section-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-body strong {
+      color: #c9d1d9;
+      font-weight: 600;
+    }
+
+    /* Lists */
+    .check-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #21262d;
+      font-size: 14px;
+      color: #8b949e;
+    }
+
+    .check-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: #3fb950;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .cross-list li::before {
+      content: "✕";
+      color: #f85149;
+    }
+
+    /* API endpoint pill */
+    .api-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      color: #388bfd;
+      margin-top: 10px;
+    }
+
+    .api-pill .method {
+      background: #1a3358;
+      color: #388bfd;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Steps */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #21262d;
+      font-size: 14px;
+      color: #8b949e;
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      background: #21262d;
+      color: #f97316;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Contact box */
+    .contact-box {
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-left: 3px solid #f97316;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #8b949e;
+    }
+
+    .contact-box strong {
+      color: #f0f6fc;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .contact-box a {
+      color: #f97316;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #21262d;
+      text-align: center;
+      font-size: 12px;
+      color: #484f58;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-icon">⬡</div>
+    <div>
+      <div class="topbar-name">Katana MRP Sidebar</div>
+      <div class="topbar-sub">Chrome Extension</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="hero">
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: <span>March 2026</span></p>
+
+      <div class="badges">
+        <div class="badge green"><span class="dot"></span>No data collection</div>
+        <div class="badge green"><span class="dot"></span>No third-party sharing</div>
+        <div class="badge blue"><span class="dot"></span>API key stored locally only</div>
+        <div class="badge orange"><span class="dot"></span>Katana API only</div>
+      </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">📋</div>
+        <div class="section-title">Overview</div>
+      </div>
+      <div class="section-body">
+        <p>The <strong>Katana MRP Sidebar</strong> is a Chrome browser extension that adds a sidebar interface to the Katana MRP web application, providing quick access to inventory items, manufacturing orders, and sales orders without leaving the current page.</p>
+        <p>This policy explains what data the extension accesses, how it is used, and your rights as a user. We are committed to full transparency — this extension is a simple productivity tool and does not collect, store, or transmit any personal data.</p>
+      </div>
+    </div>
+
+    <!-- Data stored -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🔑</div>
+        <div class="section-title">Data Stored on Your Device</div>
+      </div>
+      <div class="section-body">
+        <p>The only data stored by this extension is your <strong>Katana MRP API key</strong>, which is saved locally in your browser using Chrome's built-in <code>chrome.storage.local</code> API.</p>
+        <p>This means:</p>
+        <ul class="check-list">
+          <li>The API key never leaves your device except to authenticate directly with Katana's official API</li>
+          <li>It is not accessible to the extension developer or any third party</li>
+          <li>It is stored only on your local machine and is never uploaded to any server</li>
+          <li>You can delete it at any time using the Clear button in the extension popup</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Data accessed -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">📦</div>
+        <div class="section-title">Data Accessed from Katana</div>
+      </div>
+      <div class="section-body">
+        <p>When you use the extension, it retrieves data from <strong>your own Katana MRP account</strong> via the official Katana API. This includes inventory levels, manufacturing orders, and sales orders.</p>
+        <p>This data is fetched solely to display it within the sidebar for your use. It is:</p>
+        <ul class="check-list">
+          <li>Fetched directly from Katana's API using your own credentials</li>
+          <li>Displayed on screen and then discarded — never written to disk or sent elsewhere</li>
+          <li>Not retained between sessions</li>
+          <li>Not accessible to anyone other than you</li>
+        </ul>
+        <div class="api-pill">
+          <span class="method">HTTPS</span>
+          api.katanamrp.com
+        </div>
+      </div>
+    </div>
+
+    <!-- Data NOT collected -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🚫</div>
+        <div class="section-title">Data We Do Not Collect</div>
+      </div>
+      <div class="section-body">
+        <ul class="check-list cross-list">
+          <li>Personal identification information of any kind</li>
+          <li>Browsing history or activity outside of katanamrp.com</li>
+          <li>Analytics, usage statistics, or behavioural data</li>
+          <li>Crash reports or diagnostic telemetry</li>
+          <li>Any data from websites other than katanamrp.com</li>
+          <li>Cookies or tracking identifiers</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Third parties -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🔗</div>
+        <div class="section-title">Third-Party Services</div>
+      </div>
+      <div class="section-body">
+        <p>This extension communicates exclusively with the official Katana MRP API. No other third-party services, analytics platforms, advertising networks, or external servers are used.</p>
+        <p>The extension does not include any tracking scripts, advertisement SDKs, or external fonts/resources loaded from third-party CDNs.</p>
+      </div>
+    </div>
+
+    <!-- Removing your data -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">🗑️</div>
+        <div class="section-title">Removing Your Data</div>
+      </div>
+      <div class="section-body">
+        <p>You can remove all locally stored data at any time:</p>
+        <ol class="steps">
+          <li>Click the Katana MRP Sidebar icon in your Chrome toolbar</li>
+          <li>Click the <strong>Clear</strong> button to remove your saved API key</li>
+        </ol>
+        <p style="margin-top:14px">Alternatively, uninstalling the extension from Chrome will automatically remove all associated local storage.</p>
+      </div>
+    </div>
+
+    <!-- Children -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">👤</div>
+        <div class="section-title">Intended Audience</div>
+      </div>
+      <div class="section-body">
+        <p>This extension is designed exclusively for business use by Katana MRP customers. It is not directed at or intended for use by children under the age of 13.</p>
+      </div>
+    </div>
+
+    <!-- Changes -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">📝</div>
+        <div class="section-title">Changes to This Policy</div>
+      </div>
+      <div class="section-body">
+        <p>If this privacy policy is updated, the <strong>Last updated</strong> date at the top of this page will be revised. Continued use of the extension after any changes constitutes acceptance of the updated policy.</p>
+        <p>Given the minimal nature of this extension's data practices, significant changes to this policy are not anticipated.</p>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-icon">✉️</div>
+        <div class="section-title">Contact</div>
+      </div>
+      <div class="section-body">
+        <p>For any questions about this privacy policy or the extension:</p>
+        <div class="contact-box">
+          <strong>Katana MRP Sidebar — Developer Contact</strong>
+          <!-- Replace the line below with your name/company and email -->
+          [Your name or company] · <a href="mailto:your@email.com">your@email.com</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Katana MRP Sidebar Chrome Extension &nbsp;·&nbsp; Privacy Policy &nbsp;·&nbsp; © 2026
+    </footer>
+
+  </div>
+
+</body>
+</html>
